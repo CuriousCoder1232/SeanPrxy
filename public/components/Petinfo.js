@@ -1,13 +1,13 @@
 import React from "react";
 
-const PetInfo = () => {
+const PetInfo = ({ selectedPet }) => {
+  const img_url = selectedPet.image_url;
+  const description = selectedPet.description;
   return (
     <div>
-      <img src={this.props.image_url} className="pet-image" />
-      <div className="pet-description-container">
-        <div className="pet-description-header">Description</div>
-        <p className="pet-description">{this.props.description}</p>
-      </div>
+      <img src={img_url} />
+      <div>Description</div>
+      <p>{description}</p>
     </div>
   );
 };

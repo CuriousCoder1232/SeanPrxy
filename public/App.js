@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import RelatedPetsList from "./components/RelatedPetsList";
-import { Grid, Row, Col } from "react-bootstrap/lib";
-import SelectionTabs from "./components/SelectionTabs";
 import axios from "axios";
+import { Grid, Row, Col } from "react-bootstrap/lib";
+import RelatedPetsList from "./components/RelatedPetsList";
+import SelectionTabs from "./components/SelectionTabs";
+import PetInfo from "./components/Petinfo";
 
 class App extends Component {
   constructor() {
@@ -11,37 +12,27 @@ class App extends Component {
     this.state = {
       pet_id: 1112,
       relatedPets: [],
-      petInfo: {}
+      selectedPetInfo: {}
     };
     this.handleSelect = this.handleSelect.bind(this);
-    this.emitChangePetIdEvent = this.emitChangePetIdEvent.bind(this);
     this.getRelatedPets = this.getRelatedPets.bind(this);
     this.getPetInfo = this.getPetInfo.bind(this);
   }
 
-  emitChangePetIdEvent(pet_id) {
-    [].forEach.call(document.getElementsByClassName("petIdSubscriber"), x =>
-      x.dispatchEvent(new CustomEvent("changePetId", { detail: { pet_id } }))
-    );
-  }
-
-  getPetInfo() {
+  getPetInfo(pet_id) {
     axios
       .get(
-        "http://ec2-52-90-48-243.compute-1.amazonaws.com:3000/api/info/" +
-          this.state.pet_id
+        `http://ec2-52-90-48-243.compute-1.amazonaws.com:3000/api/info/${pet_id}`
       )
       .then(response => {
         this.setState({
-          petInfo: response.data
+          selectedPetInfo: {
+            image_url: response.data.image_url,
+            description: response.data.description
+          }
         });
       })
       .catch(err => console.log("ERROR in client GET: ", err));
-  }
-
-  changePetId(e) {
-    const pet_id = e.detail.pet_id;
-    this.setState({ pet_id }, () => this.getPetInfo());
   }
 
   getRelatedPets(pet_id) {
@@ -52,9 +43,7 @@ class App extends Component {
       .then(response => {
         this.setState({ relatedPets: response.data });
       })
-      .catch(function(error) {
-        console.log(error);
-      });
+      .catch(error => console.log(error));
   }
 
   handleSelect(key) {
@@ -65,20 +54,18 @@ class App extends Component {
       },
       () => {
         console.log("local and global state has been set to pet: ", key);
-        this.emitChangePetIdEvent(key);
         this.getRelatedPets(this.state.pet_id);
+        this.getPetInfo(this.state.pet_id);
       }
     );
   }
 
   componentDidMount() {
-    const currentPet = this.state.pet_id;
-    this.handleSelect(currentPet);
-    setTimeout(this.handleSelect.bind(this, currentPet), 1000);
+    this.handleSelect(this.state.pet_id);
 
     console.log(
       "componentDidMount seting global state to pet_id: ",
-      currentPet
+      this.state.pet_id
     );
   }
 
@@ -88,6 +75,11 @@ class App extends Component {
         <Row>
           <Col>
             <SelectionTabs id="Tabs" handleSelect={this.handleSelect} />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <PetInfo id="PetInfo" selectedPet={this.state.selectedPetInfo} />
           </Col>
         </Row>
         <Row>
