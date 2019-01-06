@@ -10,17 +10,38 @@ class App extends Component {
     super();
     this.state = {
       pet_id: 1112,
-      relatedPets: []
+      relatedPets: [],
+      petInfo: {}
     };
     this.handleSelect = this.handleSelect.bind(this);
     this.emitChangePetIdEvent = this.emitChangePetIdEvent.bind(this);
     this.getRelatedPets = this.getRelatedPets.bind(this);
+    this.getPetInfo = this.getPetInfo.bind(this);
   }
 
   emitChangePetIdEvent(pet_id) {
     [].forEach.call(document.getElementsByClassName("petIdSubscriber"), x =>
       x.dispatchEvent(new CustomEvent("changePetId", { detail: { pet_id } }))
     );
+  }
+
+  getPetInfo() {
+    axios
+      .get(
+        "http://ec2-52-90-48-243.compute-1.amazonaws.com:3000/api/info/" +
+          this.state.pet_id
+      )
+      .then(response => {
+        this.setState({
+          petInfo: response.data
+        });
+      })
+      .catch(err => console.log("ERROR in client GET: ", err));
+  }
+
+  changePetId(e) {
+    const pet_id = e.detail.pet_id;
+    this.setState({ pet_id }, () => this.getPetInfo());
   }
 
   getRelatedPets(pet_id) {
@@ -69,7 +90,6 @@ class App extends Component {
             <SelectionTabs id="Tabs" handleSelect={this.handleSelect} />
           </Col>
         </Row>
-
         <Row>
           <RelatedPetsList
             id="Pets"
