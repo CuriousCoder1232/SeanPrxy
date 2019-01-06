@@ -1,0 +1,44 @@
+{
+  "name": "proxys",
+  "version": "1.0.0",
+  "description": "> Project description",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "webpack": "webpack -w",
+    "restart": "pm2 startOrRestart ecosystem.config.js",
+    "rebuild": "pm2 deploy ecosystem.config.js production setup",
+    "deploy": "pm2 deploy ecosystem.config.js production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ByeEric/ProxyS.git"
+  },
+  "author": "Sean Meyer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ByeEric/ProxyS/issues"
+  },
+  "homepage": "https://github.com/ByeEric/ProxyS#readme",
+  "devDependencies": {
+    "axios": "^0.18.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "~7",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "jest": "^23.6.0",
+    "pm2": "^3.2.4",
+    "prop-types": "^15.6.2",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "webpack": "^4.28.3",
+    "webpack-cli": "^3.1.2"
+  },
+  "dependencies": {
+    "react-bootstrap": "^0.32.4"
+  }
+}
