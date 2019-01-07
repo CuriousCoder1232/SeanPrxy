@@ -3,8 +3,7 @@ import ReactDOM from "react-dom";
 import axios from "axios";
 import { Grid, Row, Col } from "react-bootstrap/lib";
 import SelectionTabs from "./components/SelectionTabs";
-import PetInfo from "./components/Petinfo";
-import Purchase from "./components/Purchase";
+import PetInfo from "./components/PetInfo";
 import Review from "./components/Review";
 import RelatedPetsList from "./components/RelatedPetsList";
 
@@ -45,6 +44,7 @@ class App extends Component {
       .then(response => {
         this.setState({
           selectedPetInfo: {
+            species: response.data.species,
             image_url: response.data.image_url,
             description: response.data.description
           }
@@ -110,30 +110,34 @@ class App extends Component {
     return (
       <Grid>
         <Row>
-          <Col>
+          <Col xs={12} sm={12} md={12} lg={12}>
             <SelectionTabs id="Tabs" handleSelect={this.handleSelect} />
           </Col>
         </Row>
         <Row>
-          <Col xs={12} md={8} lg={6}>
-            <PetInfo id="PetInfo" selectedPet={this.state.selectedPetInfo} />
+          <Col xs={12} sm={12} md={12} lg={12}>
+            <PetInfo
+              id="PetInfo"
+              selectedPet={this.state.selectedPetInfo}
+              purchaseInfo={this.state.purchaseInfo}
+            />
           </Col>
-          <Col xs={6} md={4} lg={2}>
-            <Purchase purchasePet={this.state.purchaseInfo} />
-          </Col>
+          <Row>
+            <Col xs={12}>
+              <RelatedPetsList
+                id="Pets"
+                relatedPets={this.state.relatedPets}
+                handleSelect={this.handleSelect}
+              />
+            </Col>
+          </Row>
         </Row>
         <Row>
           {this.state.reviews.map((review, index) => (
             <Review review={review} key={index} />
           ))}
         </Row>
-        <Row>
-          <RelatedPetsList
-            id="Pets"
-            relatedPets={this.state.relatedPets}
-            handleSelect={this.handleSelect}
-          />
-        </Row>
+        <Row />
       </Grid>
     );
   }

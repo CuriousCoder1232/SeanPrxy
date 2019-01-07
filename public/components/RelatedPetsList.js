@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { Col, Image, Panel, Label } from "react-bootstrap/lib";
+import {
+  Col,
+  Image,
+  Panel,
+  ButtonToolbar,
+  Button,
+  Label
+} from "react-bootstrap/lib";
 
 class RelatedPetsList extends Component {
   constructor(props) {
@@ -24,25 +31,27 @@ class RelatedPetsList extends Component {
           </Panel.Title>
         </Panel.Heading>
         <Panel.Body>
-          {pets.map((pet, index) => (
-            <Col md={2} xs={3} lg={2} key={index}>
-              <Panel>
-                <Panel.Heading>
-                  <Label bsStyle="info">{pet.species}</Label>
-                </Panel.Heading>
-                <Panel.Body>
-                  <Image
-                    width={118}
-                    height={85}
-                    src={pet.img_url}
-                    rounded
-                    onClick={this.handleThumbnailSelect}
-                    id={pet.pet_id}
-                  />
-                </Panel.Body>
-              </Panel>
-            </Col>
-          ))}
+          <ButtonToolbar>
+            {pets.map((pet, index) => (
+              <Col md={2} xs={2} lg={2} key={index}>
+                <Panel>
+                  <Panel.Heading>
+                    <Label bsStyle="info">{pet.species}</Label>
+                  </Panel.Heading>
+                  <Panel.Body>
+                    <Button>
+                      <Image
+                        src={pet.img_url}
+                        onClick={this.handleThumbnailSelect}
+                        id={pet.pet_id}
+                        responsive
+                      />
+                    </Button>
+                  </Panel.Body>
+                </Panel>
+              </Col>
+            ))}
+          </ButtonToolbar>
         </Panel.Body>
       </Panel>
     );

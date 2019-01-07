@@ -1,20 +1,13 @@
 import React from "react";
 import {
-  Grid,
   Row,
   Col,
-  Tabs,
-  Tab,
   TabContainer,
-  TabContent,
   TabPane,
   Nav,
   Navbar,
   NavbarBrand,
-  NavbarCollapse,
   NavbarHeader,
-  NavbarToggle,
-  NavItem,
   NavDropdown,
   MenuItem
 } from "react-bootstrap/lib";
@@ -22,10 +15,10 @@ import {
 const SelectionTabs = props => {
   return (
     <div>
-      <TabContainer id="Pet-Selection">
-        <Navbar>
+      <Navbar id="tabs">
+        <TabContainer id="tab-container">
           <Row>
-            <Col>
+            <Col xs={3} sm={3} md={3} lg={3}>
               <Nav bsStyle="tabs" onSelect={props.handleSelect.bind(this)}>
                 <NavDropdown eventKey="mammal" title="Mammal">
                   <MenuItem eventKey="1111">Felidae</MenuItem>
@@ -46,7 +39,7 @@ const SelectionTabs = props => {
                 </NavDropdown>
               </Nav>
             </Col>
-            <Col>
+            <Col xs={3} sm={3} md={3} lg={3}>
               <Nav bsStyle="tabs">
                 <NavDropdown
                   eventKey="Reptilia"
@@ -62,7 +55,7 @@ const SelectionTabs = props => {
                 </NavDropdown>
               </Nav>
             </Col>
-            <Col>
+            <Col xs={3} sm={3} md={3} lg={3}>
               <Nav bsStyle="tabs">
                 <NavDropdown
                   eventKey="Aves"
@@ -76,7 +69,7 @@ const SelectionTabs = props => {
                 </NavDropdown>
               </Nav>
             </Col>
-            <Col>
+            <Col xs={3} sm={3} md={3} lg={3}>
               <Nav bsStyle="tabs">
                 <NavDropdown
                   eventKey="Actinopterygii"
@@ -89,8 +82,8 @@ const SelectionTabs = props => {
               </Nav>
             </Col>
           </Row>
-        </Navbar>
-      </TabContainer>
+        </TabContainer>
+      </Navbar>
     </div>
   );
 };
