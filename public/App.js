@@ -2,22 +2,21 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 import { Grid, Row, Col } from "react-bootstrap/lib";
-import RelatedPetsList from "./components/RelatedPetsList";
 import SelectionTabs from "./components/SelectionTabs";
 import PetInfo from "./components/Petinfo";
 import Purchase from "./components/Purchase";
+import Review from "./components/Review";
+import RelatedPetsList from "./components/RelatedPetsList";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       pet_id: 1112,
-      relatedPets: [],
-      selectedPetInfo: {},
-      purchaseInfo: {
-        null: null
-      },
-      reviews: []
+      relatedPets: [{ null: null }],
+      selectedPetInfo: { null: null },
+      purchaseInfo: { null: null },
+      reviews: [{ null: null }]
     };
 
     this.getRelatedPets = this.getRelatedPets.bind(this);
@@ -60,7 +59,6 @@ class App extends Component {
         `http://ec2-3-17-59-254.us-east-2.compute.amazonaws.com:4002/buy/${pet_id}`
       )
       .then(res => {
-        console.table(res.data);
         this.setState({
           purchaseInfo: res.data
         });
@@ -123,6 +121,11 @@ class App extends Component {
           <Col xs={6} md={4} lg={2}>
             <Purchase purchasePet={this.state.purchaseInfo} />
           </Col>
+        </Row>
+        <Row>
+          {this.state.reviews.map((review, index) => (
+            <Review review={review} key={index} />
+          ))}
         </Row>
         <Row>
           <RelatedPetsList

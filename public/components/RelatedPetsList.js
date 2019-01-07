@@ -24,8 +24,8 @@ class RelatedPetsList extends Component {
           </Panel.Title>
         </Panel.Heading>
         <Panel.Body>
-          {pets.map(pet => (
-            <Col md={2} xs={3} lg={2} key={pet.pet_id}>
+          {pets.map((pet, index) => (
+            <Col md={2} xs={3} lg={2} key={index}>
               <Panel>
                 <Panel.Heading>
                   <Label bsStyle="info">{pet.species}</Label>
