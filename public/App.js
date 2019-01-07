@@ -15,32 +15,27 @@ class App extends Component {
       relatedPets: [],
       selectedPetInfo: {},
       purchaseInfo: {
-        class: "Loading...",
-        family: "Loading...",
-        genus: "Loading...",
-        species: "Loading...",
-        price: "Loading..."
-      }
+        null: null
+      },
+      reviews: []
     };
 
-    this.getPurchaseInfo = this.getPurchaseInfo.bind(this);
-    this.getPetInfo = this.getPetInfo.bind(this);
     this.getRelatedPets = this.getRelatedPets.bind(this);
+    this.getPetInfo = this.getPetInfo.bind(this);
+    this.getPurchaseInfo = this.getPurchaseInfo.bind(this);
+    this.getPetReviews = this.getPetReviews.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
   }
 
-  getPurchaseInfo(pet_id) {
+  getRelatedPets(pet_id) {
     axios
       .get(
-        `http://ec2-3-17-59-254.us-east-2.compute.amazonaws.com:4002/buy/${pet_id}`
+        `http://ec2-52-206-107-252.compute-1.amazonaws.com:3050/api/recommends/${pet_id}`
       )
-      .then(res => {
-        console.table(res.data);
-        this.setState({
-          purchaseInfo: res.data
-        });
+      .then(response => {
+        this.setState({ relatedPets: response.data });
       })
-      .catch(err => console.log(err));
+      .catch(error => console.log(error));
   }
 
   getPetInfo(pet_id) {
@@ -59,15 +54,30 @@ class App extends Component {
       .catch(err => console.log(err));
   }
 
-  getRelatedPets(pet_id) {
+  getPurchaseInfo(pet_id) {
     axios
       .get(
-        `http://ec2-52-206-107-252.compute-1.amazonaws.com:3050/api/recommends/${pet_id}`
+        `http://ec2-3-17-59-254.us-east-2.compute.amazonaws.com:4002/buy/${pet_id}`
       )
-      .then(response => {
-        this.setState({ relatedPets: response.data });
+      .then(res => {
+        console.table(res.data);
+        this.setState({
+          purchaseInfo: res.data
+        });
       })
-      .catch(error => console.log(error));
+      .catch(err => console.log(err));
+  }
+
+  getPetReviews(pet_id) {
+    axios
+      .get(
+        `http://ec2-18-191-41-4.us-east-2.compute.amazonaws.com/reviews/${pet_id}`
+      )
+      .then(res => {
+        this.setState({
+          reviews: res.data
+        });
+      });
   }
 
   handleSelect(key) {
@@ -82,6 +92,7 @@ class App extends Component {
         this.getPurchaseInfo(currentPet);
         this.getPetInfo(currentPet);
         this.getRelatedPets(currentPet);
+        this.getPetReviews(currentPet);
 
         console.log("local and global state has been set to pet: ", key);
       }
