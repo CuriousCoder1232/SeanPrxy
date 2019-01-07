@@ -3,22 +3,37 @@ import {
   Row,
   Col,
   TabContainer,
-  TabPane,
   Nav,
   Navbar,
-  NavbarBrand,
-  NavbarHeader,
   NavDropdown,
-  MenuItem
+  MenuItem,
+  Image
 } from "react-bootstrap/lib";
+const logo = "https://s3.us-east-2.amazonaws.com/petpicks/petsylogo.png";
 
 const SelectionTabs = props => {
   return (
     <div>
       <Navbar id="tabs">
+        <Navbar.Header>
+          <Navbar.Brand>
+            <a href="https://github.com/ByeEric" target="_blank">
+              <Image height={65} width={150} src={logo} id="LOGO" />
+            </a>
+          </Navbar.Brand>
+        </Navbar.Header>
         <TabContainer id="tab-container">
           <Row>
-            <Col xs={3} sm={3} md={3} lg={3}>
+            <Col
+              xs={1}
+              sm={1}
+              md={1}
+              lg={1}
+              xsPush={1}
+              smPush={1}
+              mdPush={1}
+              lgPush={1}
+            >
               <Nav bsStyle="tabs" onSelect={props.handleSelect.bind(this)}>
                 <NavDropdown eventKey="mammal" title="Mammal">
                   <MenuItem eventKey="1111">Felidae</MenuItem>
@@ -39,7 +54,16 @@ const SelectionTabs = props => {
                 </NavDropdown>
               </Nav>
             </Col>
-            <Col xs={3} sm={3} md={3} lg={3}>
+            <Col
+              xs={1}
+              sm={1}
+              md={1}
+              lg={1}
+              xsPush={1}
+              smPush={1}
+              mdPush={1}
+              lgPush={1}
+            >
               <Nav bsStyle="tabs">
                 <NavDropdown
                   eventKey="Reptilia"
@@ -55,7 +79,16 @@ const SelectionTabs = props => {
                 </NavDropdown>
               </Nav>
             </Col>
-            <Col xs={3} sm={3} md={3} lg={3}>
+            <Col
+              xs={1}
+              sm={1}
+              md={1}
+              lg={1}
+              xsPush={1}
+              smPush={1}
+              mdPush={1}
+              lgPush={1}
+            >
               <Nav bsStyle="tabs">
                 <NavDropdown
                   eventKey="Aves"
@@ -69,7 +102,16 @@ const SelectionTabs = props => {
                 </NavDropdown>
               </Nav>
             </Col>
-            <Col xs={3} sm={3} md={3} lg={3}>
+            <Col
+              xs={1}
+              sm={1}
+              md={1}
+              lg={1}
+              xsPush={1}
+              smPush={1}
+              mdPush={1}
+              lgPush={1}
+            >
               <Nav bsStyle="tabs">
                 <NavDropdown
                   eventKey="Actinopterygii"

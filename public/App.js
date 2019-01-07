@@ -110,7 +110,7 @@ class App extends Component {
     return (
       <Grid>
         <Row>
-          <Col xs={12} sm={12} md={12} lg={12}>
+          <Col>
             <SelectionTabs id="Tabs" handleSelect={this.handleSelect} />
           </Col>
         </Row>
