@@ -1,42 +1,17 @@
-class PetInfo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      genus: null,
-      species: null,
-      description: null,
-      image_url: null
-    };
-  }
+import React from "react";
 
-  render() {
-    return (
-      <div style={[styles.description.primary, { display: "inline-block" }]}>
-        <PetImage image_url={this.state.image_url} />
-        <PetDescription
-          description={this.state.description}
-          pet={this.state.species}
-        />
-      </div>
-    );
-  }
-}
+const Purchase = props => {
+  console.log(props.purchasePet);
 
-let PetDescription = props => {
   return (
     <div>
-      <p style={[styles.description.base]}>{props.description}</p>
+      <p>purchase information will be here</p>
+      <sub>
+        animals are only sold if buyers meet strict guidelines for animal rights
+        and housing needs.
+      </sub>
     </div>
   );
 };
 
-let PetDescription = props => {
-  return (
-    <div>
-      <p style={[styles.description.base]}>{props.description}</p>
-    </div>
-  );
-};
-
-PetDescription = Radium(PetDescription);
-export default PetDescription;
+export default Purchase;
