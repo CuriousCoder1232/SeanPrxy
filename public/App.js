@@ -12,11 +12,28 @@ class App extends Component {
     this.state = {
       pet_id: 1112,
       relatedPets: [],
-      selectedPetInfo: {}
+      selectedPetInfo: {},
+      purchaseInfo: {}
     };
     this.handleSelect = this.handleSelect.bind(this);
     this.getRelatedPets = this.getRelatedPets.bind(this);
     this.getPetInfo = this.getPetInfo.bind(this);
+  }
+
+  getPurchaseInfo(pet_id) {
+    axios
+      .get(
+        `http://ec2-52-90-48-243.compute-1.amazonaws.com:3000/api/info/${pet_id}`
+      )
+      .then(response => {
+        this.setState({
+          purchaseInfo: {
+            species: response.data.species,
+            description: response.data.description
+          }
+        });
+      })
+      .catch(err => console.log(err));
   }
 
   getPetInfo(pet_id) {
@@ -32,7 +49,7 @@ class App extends Component {
           }
         });
       })
-      .catch(err => console.log("ERROR in client GET: ", err));
+      .catch(err => console.log(err));
   }
 
   getRelatedPets(pet_id) {
